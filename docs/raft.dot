@@ -1,0 +1,18 @@
+digraph G {
+    // Definindo os objetos
+
+    eleicao [label="eleicao"];
+    heartbeat [label="heartbeat"];
+    fsm [label="fsm"];
+    
+
+
+
+    // Definindo os morfismos
+    math -> math [label="add/2"];
+    math -> math [label="subtract/2"];
+    io -> io [label="format/2"];
+    
+    // Definindo a composição
+    math -> io [label="add/2 + format/2"];
+}

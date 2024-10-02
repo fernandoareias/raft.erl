@@ -1,0 +1,53 @@
+digraph RAFT {
+    node [shape=box, style=rounded];
+
+    // Subgraph to cluster nodes
+    subgraph cluster_nodes {
+        label = "Nodes";
+        node1 [label="Node 1"];
+        node2 [label="Node 2"];
+        node3 [label="Node 3"];
+        node4 [label="Node 4"];
+        node5 [label="Node 5"];
+    }
+
+    // Election process
+    node1 -> node2 [label="RequestVote", style=dashed];
+    node1 -> node3 [label="RequestVote", style=dashed];
+    node1 -> node4 [label="RequestVote", style=dashed];
+    node1 -> node5 [label="RequestVote", style=dashed];
+
+    node2 -> node1 [label="Vote", style=dashed];
+    node3 -> node1 [label="Vote", style=dashed];
+    node4 -> node1 [label="Vote", style=dashed];
+    node5 -> node1 [label="Vote", style=dashed];
+
+    node2 -> node1 [label="RequestVote", style=dashed];
+    node2 -> node3 [label="RequestVote", style=dashed];
+    node2 -> node4 [label="RequestVote", style=dashed];
+    node2 -> node5 [label="RequestVote", style=dashed];
+
+    node1 -> node2 [label="Vote", style=dashed];
+    node3 -> node2 [label="Vote", style=dashed];
+    node4 -> node2 [label="Vote", style=dashed];
+    node5 -> node2 [label="Vote", style=dashed];
+
+    // Log replication from leader to followers
+    leader -> node1 [label="Log Entry"];
+    leader -> node2 [label="Log Entry"];
+    leader -> node3 [label="Log Entry"];
+    leader -> node4 [label="Log Entry"];
+    leader -> node5 [label="Log Entry"];
+
+    // Heartbeats
+    leader -> node1 [label="Heartbeat"];
+    leader -> node2 [label="Heartbeat"];
+    leader -> node3 [label="Heartbeat"];
+    leader -> node4 [label="Heartbeat"];
+    leader -> node5 [label="Heartbeat"];
+    
+    // Client Requests
+    client [label="Client", shape=ellipse];
+    client -> leader [label="Request"];
+    leader -> client [label="Response"];
+}
